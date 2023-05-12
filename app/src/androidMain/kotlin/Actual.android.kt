@@ -1,0 +1,1 @@
+internal actual fun <T> androidValue(block: () -> T): T = block()
