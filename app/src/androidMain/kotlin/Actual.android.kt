@@ -1,1 +1,8 @@
-internal actual fun <T> androidValue(block: () -> T): T = block()
+import android.app.Activity
+import test.Test
+
+class TestActivity : Activity() {
+    fun test(test: Test) {
+        println(test)
+    }
+}

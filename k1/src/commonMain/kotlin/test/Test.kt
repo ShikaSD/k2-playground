@@ -1,4 +1,5 @@
 package test
 
-@PublishedApi
-internal fun test() {}
+import kotlinx.serialization.json.JsonElement
+
+@JvmInline value class Test(val jsonElement: JsonElement)

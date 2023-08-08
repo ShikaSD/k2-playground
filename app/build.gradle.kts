@@ -5,6 +5,11 @@ plugins {
     alias(libs.plugins.com.android.application)
 }
 
+
+dependencies {
+    kotlinCompilerPluginClasspath(project(":compiler-plugin"))
+}
+
 kotlin {
     androidTarget()
 
@@ -20,6 +25,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib"))
+                implementation(project(":k1"))
+//                implementation(libs.kotlinx.serialization.json)
             }
         }
 
@@ -29,17 +36,12 @@ kotlin {
 
         val androidMain by getting {
             dependsOn(jvmMain)
-
-            dependencies {
-                implementation(libs.appcompat)
-                implementation(libs.material)
-            }
         }
     }
 }
 
 android {
-    namespace = "com.example.kotlindevtest"
+    namespace = "com.example.kotlindevtestapp"
     compileSdk = 33
 
     defaultConfig {

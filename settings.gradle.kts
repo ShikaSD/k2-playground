@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Kotlin Dev test"
 include(":app")
 include(":k1")
+include(":compiler-plugin")
