@@ -16,7 +16,7 @@ kotlin {
     targets.all {
         compilations.all {
             compilerOptions.configure {
-                languageVersion.set(KOTLIN_2_0)
+//                languageVersion.set(KOTLIN_2_0)
             }
         }
     }
@@ -26,7 +26,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib"))
                 implementation(project(":k1"))
-//                implementation(libs.kotlinx.serialization.json)
             }
         }
 
