@@ -15,9 +15,12 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib"))
+                implementation(kotlin("test"))
 //                implementation(project(":k1"))
             }
         }
+
+        val commonTest by getting
 
         val jvmMain by creating {
             dependsOn(commonMain)
@@ -25,6 +28,14 @@ kotlin {
 
         val androidMain by getting {
             dependsOn(jvmMain)
+        }
+
+        val androidUnitTest by getting {
+            dependsOn(commonTest)
+
+            dependencies {
+                implementation(kotlin("test-junit"))
+            }
         }
     }
 }
