@@ -1,5 +1,3 @@
-# Repro for KT-60942
+# Repro for KT-63638
 
 To repro, run ./gradlew :app:assembleDebug.
-
-Uncommenting dependency in app module build.gradle.kts allows the type to be resolved correctly.
