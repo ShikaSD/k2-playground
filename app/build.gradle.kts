@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0
-
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.com.android.application)
@@ -7,25 +5,17 @@ plugins {
 
 
 dependencies {
-    kotlinCompilerPluginClasspath(project(":compiler-plugin"))
+//    kotlinCompilerPluginClasspath(project(":compiler-plugin"))
 }
 
 kotlin {
     androidTarget()
 
-    targets.all {
-        compilations.all {
-            compilerOptions.configure {
-//                languageVersion.set(KOTLIN_2_0)
-            }
-        }
-    }
-
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib"))
-                implementation(project(":k1"))
+//                implementation(project(":k1"))
             }
         }
 

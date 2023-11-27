@@ -2,6 +2,7 @@ package compiler.plugin
 
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import org.jetbrains.kotlin.backend.jvm.ir.isInCurrentModule
 import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSeverity
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
@@ -13,6 +14,7 @@ import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.descriptors.DescriptorVisibilities
 import org.jetbrains.kotlin.ir.IrStatement
+import org.jetbrains.kotlin.ir.ObsoleteDescriptorBasedAPI
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrDeclaration
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
@@ -28,7 +30,9 @@ import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.util.SYNTHETIC_OFFSET
 import org.jetbrains.kotlin.ir.util.constructors
 import org.jetbrains.kotlin.ir.util.fields
+import org.jetbrains.kotlin.ir.util.getPackageFragment
 import org.jetbrains.kotlin.ir.util.hasAnnotation
+import org.jetbrains.kotlin.ir.util.module
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.ir.visitors.transformChildrenVoid
 import org.jetbrains.kotlin.metadata.ProtoBuf
@@ -58,6 +62,7 @@ class CompilerPlugin : CompilerPluginRegistrar() {
 }
 
 class IrExtension(val messageCollector: MessageCollector) : IrGenerationExtension {
+    @OptIn(ObsoleteDescriptorBasedAPI::class)
     override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
         val annotationCls = pluginContext.referenceClass(ClassId.fromString("app.test.Inferred"))!!
         moduleFragment.transformChildrenVoid(
@@ -81,10 +86,10 @@ class IrExtension(val messageCollector: MessageCollector) : IrGenerationExtensio
 
                 override fun visitValueParameter(declaration: IrValueParameter): IrStatement {
                     val cls = declaration.type.classOrNull!!.owner
-                    val hasAnnotation = cls.hasAnnotation(annotationCls)
+                    val isInCurrentModule = cls.getPackageFragment()
                     messageCollector.report(
                         CompilerMessageSeverity.WARNING,
-                        "${declaration.name} with type ${cls.name}, inferred annotation: $hasAnnotation"
+                        "${declaration.name} with type ${cls.name}, is in current module: $isInCurrentModule"
                     )
                     return super.visitValueParameter(declaration)
                 }
