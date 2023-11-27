@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9
 
 plugins {
     alias(libs.plugins.multiplatform)
@@ -8,13 +8,13 @@ plugins {
 kotlin {
     androidTarget()
 
-//    targets.all {
-//        compilations.all {
-//            compilerOptions.configure {
-//                languageVersion.set(KOTLIN_2_0)
-//            }
-//        }
-//    }
+    targets.all {
+        compilations.all {
+            compilerOptions.configure {
+                languageVersion.set(KOTLIN_1_9)
+            }
+        }
+    }
 
     sourceSets {
         val commonMain by getting {

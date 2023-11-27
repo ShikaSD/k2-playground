@@ -1,3 +1,3 @@
-# Repro for KT-63756
+# Repro for KT-63753
 
-To repro, run ./gradlew :app:testDebugUnitTest.
+To repro, run ./gradlew :app:assembleDebug.
