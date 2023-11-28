@@ -1,8 +1,12 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
     alias(libs.plugins.multiplatform)
     id("com.android.library")
+}
+
+dependencies {
+    kotlinCompilerPluginClasspath("androidx.compose.compiler:compiler:1.5.5-dev-k2.0.0-Beta1-06b8ae672a4")
 }
 
 kotlin {
@@ -11,7 +15,7 @@ kotlin {
     targets.all {
         compilations.all {
             compilerOptions.configure {
-                languageVersion.set(KOTLIN_1_9)
+                languageVersion.set(KotlinVersion.KOTLIN_2_0)
             }
         }
     }
@@ -20,7 +24,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib"))
-                implementation(libs.kotlinx.serialization.json)
+                api(libs.compose.runtime)
             }
         }
 

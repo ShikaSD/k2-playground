@@ -16,10 +16,13 @@ dependencyResolutionManagement {
         maven {
             url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev/")
         }
+        maven {
+            url = uri("https://androidx.dev/storage/compose-compiler/repository/")
+        }
     }
 }
 
 rootProject.name = "Kotlin Dev test"
 include(":app")
-include(":k1")
+include(":module")
 include(":compiler-plugin")

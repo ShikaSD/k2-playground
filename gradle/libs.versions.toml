@@ -3,10 +3,12 @@ com-android-application = "8.1.4"
 kotlin = "2.0.0-Beta1"
 junit = "4.13.2"
 kotlinx-serialization-json = "1.5.1"
+compose = "1.5.4"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "com-android-application" }

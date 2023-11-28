@@ -1,4 +1,4 @@
-import org.gradle.configurationcache.extensions.capitalized
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
     alias(libs.plugins.multiplatform)
@@ -7,28 +7,25 @@ plugins {
 
 
 dependencies {
-//    kotlinCompilerPluginClasspath(project(":compiler-plugin"))
-}
-
-android {
-    applicationVariants.configureEach {
-        val variant = this
-        val outputDir = File(buildDir, "generateExternalFile/${variant.dirName}")
-        val task = project.tasks.register("generateExternalFile${variant.name.capitalized()}", FileGeneratingTask::class.java) {
-            this.outputDir.set(outputDir)
-        }
-        variant.registerJavaGeneratingTask(task, outputDir)
-    }
+    kotlinCompilerPluginClasspath("androidx.compose.compiler:compiler:1.5.5-dev-k2.0.0-Beta1-06b8ae672a4")
 }
 
 kotlin {
     androidTarget()
 
+    targets.all {
+        compilations.all {
+            compilerOptions.configure {
+                languageVersion.set(KotlinVersion.KOTLIN_1_9)
+            }
+        }
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib"))
-//                implementation(project(":k1"))
+                implementation(project(":module"))
             }
         }
 
@@ -82,23 +79,5 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-}
-
-@DisableCachingByDefault
-abstract class FileGeneratingTask : DefaultTask() {
-    @get:OutputDirectory
-    abstract val outputDir: DirectoryProperty
-
-    @TaskAction
-    fun taskAction() {
-        println("Task!")
-        val outputDirFile = outputDir.asFile.get()
-        outputDirFile.mkdirs()
-        val file = File(outputDirFile, "Test.kt")
-        val text = """
-            val hello = "World!"
-        """
-        file.writeText(text)
     }
 }
