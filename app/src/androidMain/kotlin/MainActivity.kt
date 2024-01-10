@@ -3,9 +3,12 @@ import androidx.compose.runtime.Composable
 import test.Test
 
 class MainActivity : Activity() {
+    var test: String? = null
     @Composable fun Content() {
-        Test {
-            println("Test")
-        }
+        Test(
+            test?.let {
+                { }
+            }
+        )
     }
 }

@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    kotlinCompilerPluginClasspath("androidx.compose.compiler:compiler:1.5.5-dev-k2.0.0-Beta1-06b8ae672a4")
+    kotlinCompilerPluginClasspath("androidx.compose.compiler:compiler:1.5.8-dev-k2.0.0-Beta2-99ed868a0f8")
 }
 
 kotlin {

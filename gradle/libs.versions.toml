@@ -1,6 +1,6 @@
 [versions]
 com-android-application = "8.1.4"
-kotlin = "2.0.0-Beta1"
+kotlin = "2.0.0-Beta2"
 junit = "4.13.2"
 kotlinx-serialization-json = "1.5.1"
 compose = "1.5.4"
